@@ -36,12 +36,14 @@ int main()
 void* thread1(void *arg)
 {
     printf("thread1 returning\n");
-    // sleep(1);
+    sleep(1);
+    // just return.
     return ((void*)1);
 }
 
 void* thread2(void *arg)
 {
-    printf("thread2 returning\n");
-    return ((void*)2);
+    printf("thread2 exiting\n");
+    // pthread_exit
+    pthread_exit((void*)2);
 }
