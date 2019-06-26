@@ -3,11 +3,10 @@
 #include<pthread.h>
 #include<stdio.h>
 #include<stdlib.h>
+void* thread(void *arg);
 
 pthread_mutex_t f_lock;
 long            f_count;
-
-void* thread(void *arg);
 
 int main(int argc, char *argv[])
 {
@@ -20,11 +19,9 @@ int main(int argc, char *argv[])
     }
 
     time = atoi(argv[1]);
-
     if (pthread_mutex_init(&f_lock, NULL) != 0) {
         exit(-1);
     }
-    
     for (i = 0; i < 3; i++) {
         err = pthread_create(&tid[i], NULL, thread, &time);
         if (err != 0) {
@@ -45,6 +42,7 @@ int main(int argc, char *argv[])
 void* thread(void *arg)
 {
     long i, times = *(long*)arg;
+    
     for (i = 0; i < times; i++) {
         pthread_mutex_lock(&f_lock);
         f_count++;

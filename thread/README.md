@@ -37,7 +37,7 @@ int pthread_equal(pthread_t tid1, pthread_t tid2);
 
 ```C
 int pthread_create(pthread_t *tidp, const pthread_attr_t *attr,
-(void*)(*start_rtn)(void*),void *arg);
+                    (void*)(*start_rtn)(void*),void *arg);
 ```
 
 - tidp:新创建的线程，其ID会被写入tidp指向的内存区域
