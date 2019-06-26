@@ -87,4 +87,24 @@ void pthread_clean_pop(int execute);
 
 ## 5. 线程同步
 
-当多个线程可以读取和修改同一个变量时(这个变量可能是全局变量或者是在堆上创建的变量，局部变量属于线程私有，不存在同步问题)，需要对线程进行同步，确保在访问变量的存储内容时不会访问到无效的值。线程不同步造成的问题参见例子``
+当多个线程可以读取和修改同一个变量时(这个变量可能是全局变量或者是在堆上创建的变量，局部变量属于线程私有，不存在同步问题)，需要对线程进行同步，确保在访问变量的存储内容时不会访问到无效的值。线程不同步造成的问题参见例子`6.c`。
+
+## 6. 互斥锁
+
+可以使用`pthread`的互斥接口来保护数据，确保同一时间只有一个线程访问数据。
+
+```C
+// mutex init
+int pthread_mutex_init(pthread_mutex_t *restrict mutex,const pthread_mutexattr_t *restrict attr);
+//mutex destory
+int pthread_destory(pthread_mutex_t *mutex);
+// lock mutex
+int pthread_mutex_lock(pthread_mutex_t *mutex);
+// unlock mutex
+int pthread_mutex_unlock(pthread_mutex_t *mutex);
+```
+
+使用mutex保护数据实例参见`5.c 7.c`。
+
+## 7.死锁
+
