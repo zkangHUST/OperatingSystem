@@ -45,7 +45,6 @@ int main()
 
 void* thread1(void *arg)
 {
-    // the two handlers will not be execute because thread1 call return to exit.
     struct foo* fp = (struct foo*)arg;
     foo_hold(fp);
     fp->f_id++;
