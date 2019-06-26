@@ -1,3 +1,2 @@
-.vscode/ipch/b087ed01686e0204/1.ipch
-.vscode/ipch/b087ed01686e0204/mmap_address.bin
 *.out
+.vscode/*
