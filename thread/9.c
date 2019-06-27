@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
     }
     for (i = 0; i < time; i++) {
         err = pthread_join(rtid[i], (void*)&tret);
-        printf("thread[%d] fcount = %ld\n", i, (long)tret);
+        printf("rthread[%d] fcount = %ld\n", i, (long)tret);
         if (err != 0) {
             exit(-1);
         }
