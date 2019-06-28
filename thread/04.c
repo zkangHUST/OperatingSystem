@@ -11,8 +11,8 @@ void* thread2(void* arg);
 int main()
 {
     int         err;
-    pthread_t   tid1, tid2;
     void        *tret;
+    pthread_t   tid1, tid2;
 
     err = pthread_create(&tid1, NULL, thread1, (void*)1);
     if (err != 0) {
