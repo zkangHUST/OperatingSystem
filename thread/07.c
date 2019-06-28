@@ -11,8 +11,8 @@ long            f_count;
 int main(int argc, char *argv[])
 {
     int         i, err, time;
-    pthread_t   tid[3];
     void        *tret;
+    pthread_t   tid[3];
 
     if (argc != 2) {
         exit(-1);
