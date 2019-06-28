@@ -7,19 +7,17 @@ void* read_thread(void* arg);
 pthread_rwlock_t      rwlock;
 long                 f_count = 0;
 
-
 int main(int argc, char *argv[])
 {
     int         i, err, time;
-    pthread_t   wtid[3];
     void        *tret;
-
+    pthread_t   wtid[3];
+    
     if (argc != 2) {
         exit(-1);
     }
 
     time = atoi(argv[1]);
-
     printf("time = %d\n", time);
     pthread_t* rtid = (pthread_t*)malloc(sizeof(pthread_t) * time);
     if (rtid == NULL) {
@@ -43,7 +41,6 @@ int main(int argc, char *argv[])
             exit(-1);
         }
     }
-
     for (i = 0; i < 3; i++) {
         err = pthread_join(wtid[i], (void*)&tret);
         printf("wthread[%d] exit code %ld\n", i, (long)tret);
@@ -78,11 +75,9 @@ void* write_thread(void *arg)
 void* read_thread(void* arg)
 {
     long res;
+
     pthread_rwlock_rdlock(&rwlock);
     res = f_count;
-    // if (f_count % 10000 == 0) {
-    //     printf("count = %ld\n", f_count);
-    // }
     pthread_rwlock_unlock(&rwlock);
     return ((void*)res);
 }
