@@ -33,6 +33,7 @@ int main()
     exit(0);
 }
 
+// return 
 void* thread1(void *arg)
 {
     printf("thread1 returning\n");
@@ -41,6 +42,7 @@ void* thread1(void *arg)
     return ((void*)1);
 }
 
+// exit
 void* thread2(void *arg)
 {
     printf("thread2 exiting\n");
