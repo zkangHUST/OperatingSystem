@@ -23,7 +23,6 @@ int main()
         printf("cann't create new thread!\n");
         exit(-1);
     }
-   
     err = pthread_create(&ntid[2], NULL, print_C, NULL);
     if (err != 0) {
         printf("cann't create new thread!\n");
