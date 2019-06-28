@@ -1,5 +1,4 @@
 // from apue
-//an error demonstration
 #include<pthread.h>
 #include<stdio.h>
 #include<stdlib.h>
