@@ -11,7 +11,8 @@ pthread_mutex_t qlock = PTHREAD_MUTEX_INITIALIZER;
 int main(int argc, char* argv[])
 {
     pthread_t 	*tid;
-    int err, i, cnt;
+    int         err, i, cnt;
+
     if (argc != 2) {
         printf("usage:./a.out threadnum(threadnum >= 2)\n");
         exit(0);
@@ -21,9 +22,7 @@ int main(int argc, char* argv[])
         printf("thread num must be no less than 2\n");
         exit(0);
     }
-
     tid = (pthread_t*)malloc(sizeof(pthread_t) * cnt);
-    
     for (i = 0; i < cnt - 1; i++) {
         err = pthread_create(&tid[i], NULL, do_download, NULL);
         if (err != 0) {
