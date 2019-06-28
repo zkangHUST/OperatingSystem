@@ -17,8 +17,7 @@ int main(int argc, char *argv[])
         exit(-1);
     }
 
-    time = atoi(argv[1]);
-    
+    time = atoi(argv[1]);    
     for (i = 0; i < 3; i++) {
         err = pthread_create(&tid[i], NULL, thread, &time);
         if (err != 0) {
