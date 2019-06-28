@@ -1,8 +1,33 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>
+void *write(void *temp);
+void *read(void *temp);
+
 pthread_mutex_t read_mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t write_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+int main()
+{
+
+    pthread_t thread_id, thread_id1;
+    pthread_attr_t attr;
+    int ret;
+    void *res;
+    ret = pthread_create(&thread_id, NULL, write, NULL);
+    if (ret != 0) {
+        exit(-1);
+    }
+    ret = pthread_create(&thread_id1, NULL, read, NULL);
+    if (ret != 0) {
+        exit(-1);
+    }
+    printf("Created thread success!\n");
+    pthread_join(thread_id, &res);
+    pthread_join(thread_id1, &res);
+    exit(0);
+}
+
 
 void *write(void *temp)
 {
@@ -52,23 +77,4 @@ void *read(void *temp)
     return ((void*)0);
 }
 
-int main()
-{
 
-    pthread_t thread_id, thread_id1;
-    pthread_attr_t attr;
-    int ret;
-    void *res;
-    ret = pthread_create(&thread_id, NULL, write, NULL);
-    if (ret != 0) {
-        exit(-1);
-    }
-    ret = pthread_create(&thread_id1, NULL, read, NULL);
-    if (ret != 0) {
-        exit(-1);
-    }
-    printf("Created thread success!\n");
-    pthread_join(thread_id, &res);
-    pthread_join(thread_id1, &res);
-    exit(0);
-}
