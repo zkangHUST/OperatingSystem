@@ -1,8 +1,7 @@
-// from apue
 #include<pthread.h>
 #include<stdio.h>
 #include<stdlib.h>
-void printThreadId(const char *s);
+void print_threadId(const char *s);
 void *test(void* arg);
 pthread_t ntid;
 
@@ -14,12 +13,12 @@ int main()
         printf("cann't create new thread!\n");
         exit(-1);
     }
-    printThreadId("main thread:");
+    print_threadId("main thread:");
     sleep(1);
     return 0;
 }
 
-void printThreadId(const char *s)
+void print_threadId(const char *s)
 {
     pid_t pid;
     pthread_t tid;
@@ -31,6 +30,6 @@ void printThreadId(const char *s)
 
 void *test(void* arg)
 {
-    printThreadId("new thread: ");
+    print_threadId("new thread: ");
     return ((void*)0);
 }
