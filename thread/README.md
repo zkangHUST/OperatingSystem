@@ -195,3 +195,51 @@ void *read(void *temp)
 
 ## 9.条件变量
 
+条件变量与互斥锁一起使用，允许线程已无竞争的方式等待特定的条件发生。条件本身由互斥锁保护，线程在改变条件状态之前必须先锁住互斥锁。
+
+```C
+int pthread_cond_init(pthread_cont_t *restrict cond, const pthread_condattr_t *restrict attr);
+int pthread_cond_destory(pthread_cond_t *cond);
+int pthread_cond_wait(pthread_cond_t *restrict cond, pthread_mutex_t *restrict mutex);
+int pthread_cond_signal(pthread_cond_t *cond);
+int pthread_cond_broadcast(pthread_cond_t *cond);
+```
+看一个例子(完整程序参见`11.c`)：
+```C
+void *do_download(void * arg)
+{
+    int i = 0, tmp;
+
+    for (i = 0; ; i++) {
+        pthread_mutex_lock(&qlock);
+        if (process_bar > 100) {
+            pthread_mutex_unlock(&qlock);
+            pthread_cond_signal(&cond);
+            return ((void*)0);
+        }
+        printf("downloading......%d%%\n", process_bar);
+        tmp = process_bar++;
+        pthread_mutex_unlock(&qlock);
+        sleep(1);
+    }
+}
+
+void *check_download_status(void* arg)
+{
+    pthread_mutex_lock(&qlock);
+    printf("is download complete?\n");
+    while (process_bar < 100) {
+        printf("%d%%......\n", process_bar);
+        pthread_cond_wait(&cond, &qlock);
+        printf("is download complete?\n");
+    }
+    printf("download success!\n");
+    pthread_mutex_unlock(&qlock);
+    return ((void*)0);
+}
+```
+在这个例子当中，我们模拟多线程文件下载。在下载线程中抢到锁之后，判断下载是否完成，如果下载完成(process_bar >= 100)，那么释放锁，给等待线程发送信号，随后退出线程。如果没有完成，那么我们把process_bar++, 释放锁，然后睡眠1s(假设1s可以下载1%的内容)。
+
+在检查下载状态线程中，也是先抢锁，抢到锁之后，判断下载是否完成，下载没有完成，那么把线程放入等待条件的线程列表中，同时对互斥量解锁。如果下载完成，那么久解锁，结束进程。
+
+这个程序支持传入线程个数，如果传入参数n，那么创建n-1个下载线程，1个检查下载状态线程。如果仅有一个下载线程，下载完成大概需要100s，如果有100个下载线程，仅需要1s多一点。
