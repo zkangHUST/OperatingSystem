@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
 
 void *do_download(void * arg)
 {
-    int i = 0, tmp;
+    int i = 0;
 
     for (i = 0; ; i++) {
         pthread_mutex_lock(&qlock);
@@ -54,7 +54,7 @@ void *do_download(void * arg)
             return ((void*)0);
         }
         printf("downloading......%d%%\n", process_bar);
-        tmp = process_bar++;
+        process_bar++;
         pthread_mutex_unlock(&qlock);
         sleep(1);
     }
