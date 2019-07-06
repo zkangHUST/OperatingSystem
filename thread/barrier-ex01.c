@@ -28,6 +28,7 @@ void* task(void *arg)
 
     i = (int)arg;
     t = rand() % 10 + 1;
+    // 睡几秒钟，假装我们在执行task
     sleep(t);
     printf("task %d accomplished in %d minutes\n", i, t);
     pthread_barrier_wait(&barrier);
