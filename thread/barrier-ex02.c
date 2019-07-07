@@ -4,8 +4,8 @@
 #include<stdlib.h>
 #include<time.h>
 #include "heapsort.h"
-#define NTHR 100
-#define NUMNUM (800 * 10000)
+#define NTHR 1000
+#define NUMNUM (1000 * 10000)
 #define TNUM (NUMNUM / NTHR)
 
 void* sort(void *arg);
